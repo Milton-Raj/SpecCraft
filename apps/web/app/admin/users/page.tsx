@@ -19,7 +19,7 @@ export default function AdminUsersPage() {
         async function fetchUsers() {
             try {
                 const token = localStorage.getItem('token');
-                const res = await fetch('http://localhost:3001/admin/users', {
+                const res = await fetch('http://localhost:4001/admin/users', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 if (res.ok) {
@@ -40,7 +40,7 @@ export default function AdminUsersPage() {
         const token = localStorage.getItem('token');
 
         try {
-            await fetch(`http://localhost:3001/admin/users/${userId}/role`, {
+            await fetch(`http://localhost:4001/admin/users/${userId}/role`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

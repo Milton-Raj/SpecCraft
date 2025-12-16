@@ -49,7 +49,7 @@ export default function WizardPage() {
                 const token = localStorage.getItem('token');
 
                 // 1. Get Doc to see previous history
-                const docRes = await fetch(`http://localhost:3001/documents/${id}`, {
+                const docRes = await fetch(`http://localhost:4001/documents/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const doc = await docRes.json();
@@ -64,7 +64,7 @@ export default function WizardPage() {
                 setMessages(loadedMessages);
 
                 // 2. Start/Resume Session (Get Current Question)
-                const startRes = await fetch(`http://localhost:3001/documents/${id}/start`, {
+                const startRes = await fetch(`http://localhost:4001/documents/${id}/start`, {
                     method: 'POST',
                     headers: { Authorization: `Bearer ${token}` }
                 });
@@ -103,7 +103,7 @@ export default function WizardPage() {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:3001/documents/${id}/answer`, {
+            const res = await fetch(`http://localhost:4001/documents/${id}/answer`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

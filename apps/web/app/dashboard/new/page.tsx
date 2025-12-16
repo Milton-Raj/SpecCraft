@@ -16,7 +16,7 @@ export default function NewDocumentPage() {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:3001/documents', {
+            const res = await fetch('http://localhost:4001/documents', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

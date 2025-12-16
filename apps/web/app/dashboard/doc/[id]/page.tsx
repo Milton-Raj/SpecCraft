@@ -17,7 +17,7 @@ export default function DocPreviewPage() {
         async function fetchDoc() {
             try {
                 const token = localStorage.getItem('token');
-                const res = await fetch(`http://localhost:3001/documents/${id}`, {
+                const res = await fetch(`http://localhost:4001/documents/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const data = await res.json();
