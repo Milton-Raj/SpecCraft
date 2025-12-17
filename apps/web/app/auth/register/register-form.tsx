@@ -19,7 +19,7 @@ const formSchema = z.object({
 
 type UserFormValue = z.infer<typeof formSchema>;
 
-export function RegisterForm({ className }: React.HTMLAttributes<HTMLHTMLDivElement>) {
+export function RegisterForm({ className }: React.HTMLAttributes<HTMLDivElement>) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
