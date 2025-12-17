@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FileText, Layers, ShieldCheck, ArrowRight, Star, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { TeamSection } from '@/components/landing/TeamSection'; // Assuming this might exist or just cleanup
+// TeamSection import removed
 import { PricingGrid } from '@/components/landing/PricingGrid';
 import { HeaderAuth } from '@/components/landing/HeaderAuth';
 
