@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Plus, FileText, Clock, File } from 'lucide-react';
+import { Plus, FileText, Clock, File, Search } from 'lucide-react';
+import { appFetch } from '@/lib/mock-api';
 
 export default function DashboardPage() {
     const [documents, setDocuments] = useState<any[]>([]);
@@ -14,7 +15,7 @@ export default function DashboardPage() {
             try {
                 const token = localStorage.getItem('token');
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
-                const res = await fetch(`${apiUrl}/documents`, {
+                const res = await appFetch(`${apiUrl}/documents`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

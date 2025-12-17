@@ -1,7 +1,8 @@
 "use client";
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { appFetch } from '@/lib/mock-api';
 import { useEffect, useState } from 'react';
 import { LayoutDashboard, FilePlus, Settings, LogOut, User, ArrowUpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,7 +23,7 @@ export function DashboardSidebar() {
 
         // Fetch user profile
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
-        fetch(`${apiUrl}/auth/profile`, {
+        appFetch(`${apiUrl}/auth/profile`, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(res => res.json())

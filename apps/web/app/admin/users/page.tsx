@@ -5,6 +5,8 @@ import { Search, Download, Plus, Edit2, Trash2, X, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
+import { appFetch } from '@/lib/mock-api';
+
 
 interface User {
     id: string;
@@ -39,7 +41,7 @@ export default function AdminUsersPage() {
             console.log("Fetching with token:", token.substring(0, 10) + "...");
 
             const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
-            const res = await fetch(`${apiUrl}/admin/users`, {
+            const res = await appFetch(`${apiUrl}/admin/users`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

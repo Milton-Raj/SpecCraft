@@ -1,7 +1,9 @@
+import { appFetch } from '@/lib/mock-api';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
 
 export async function loginUser(data: any) {
-    const res = await fetch(`${API_URL}/auth/login`, {
+    const res = await appFetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -18,7 +20,7 @@ export async function loginUser(data: any) {
 }
 
 export async function registerUser(data: any) {
-    const res = await fetch(`${API_URL}/auth/register`, {
+    const res = await appFetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
