@@ -5,6 +5,10 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { AiModule } from './ai/ai.module';
+import { DocumentsModule } from './documents/documents.module';
+import { PaymentsModule } from './payments/payments.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -14,6 +18,10 @@ import { AuthModule } from './auth/auth.module';
     DatabaseModule,
     UsersModule,
     AuthModule,
+    AiModule,
+    DocumentsModule,
+    PaymentsModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

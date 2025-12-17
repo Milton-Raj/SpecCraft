@@ -8,7 +8,7 @@ import * as z from 'zod';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { loginUser } from '@/lib/auth-actions';
 
 const formSchema = z.object({
@@ -20,6 +20,7 @@ type UserFormValue = z.infer<typeof formSchema>;
 
 export function LoginForm({ className }: React.HTMLAttributes<HTMLDivElement>) {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const {
         register,
@@ -34,7 +35,13 @@ export function LoginForm({ className }: React.HTMLAttributes<HTMLDivElement>) {
         try {
             const result = await loginUser(data);
             localStorage.setItem('token', result.access_token);
-            router.push('/dashboard');
+
+            const redirect = searchParams.get('redirect');
+            if (redirect) {
+                router.push(redirect);
+            } else {
+                router.push('/dashboard');
+            }
         } catch (error) {
             console.error(error);
             alert('Login failed'); // Replace with proper error UI later
@@ -46,9 +53,9 @@ export function LoginForm({ className }: React.HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={cn('grid gap-6', className)}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className={cn('grid gap-4')}>
+                <div className={cn('grid gap-5')}>
                     <div className="grid gap-2">
-                        <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="email">
+                        <label className="text-sm font-semibold text-slate-700 ml-1" htmlFor="email">
                             Email
                         </label>
                         <Input
@@ -59,6 +66,7 @@ export function LoginForm({ className }: React.HTMLAttributes<HTMLDivElement>) {
                             autoComplete="email"
                             autoCorrect="off"
                             disabled={isLoading}
+                            className="h-12 rounded-xl border-slate-200 bg-white/50 focus:border-indigo-500 focus:ring-indigo-500/20 backdrop-blur-sm"
                             {...register('email')}
                         />
                         {errors?.email && (
@@ -66,9 +74,12 @@ export function LoginForm({ className }: React.HTMLAttributes<HTMLDivElement>) {
                         )}
                     </div>
                     <div className="grid gap-2">
-                        <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="password">
-                            Password
-                        </label>
+                        <div className="flex items-center justify-between">
+                            <label className="text-sm font-semibold text-slate-700 ml-1" htmlFor="password">
+                                Password
+                            </label>
+                            <a href="#" className="text-xs text-indigo-600 hover:text-indigo-500 font-medium">Forgot password?</a>
+                        </div>
                         <Input
                             id="password"
                             placeholder="********"
@@ -76,6 +87,7 @@ export function LoginForm({ className }: React.HTMLAttributes<HTMLDivElement>) {
                             autoCapitalize="none"
                             autoComplete="current-password"
                             disabled={isLoading}
+                            className="h-12 rounded-xl border-slate-200 bg-white/50 focus:border-indigo-500 focus:ring-indigo-500/20 backdrop-blur-sm"
                             {...register('password')}
                         />
                         {errors?.password && (
@@ -84,7 +96,7 @@ export function LoginForm({ className }: React.HTMLAttributes<HTMLDivElement>) {
                             </p>
                         )}
                     </div>
-                    <Button disabled={isLoading}>
+                    <Button disabled={isLoading} className="btn-premium h-12 rounded-xl font-bold text-base shadow-lg mt-2">
                         {isLoading && (
                             <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>

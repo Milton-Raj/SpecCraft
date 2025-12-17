@@ -7,11 +7,97 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
-  password  String
+  password  String?
   name      String?
+  googleId  String?  @unique
+  avatar    String?
+  isVerified Boolean @default(false)
+  
+  role      Role     @default(USER)
+  plan      Plan     @default(FREE)
+  
+  docs      Document[]
+  payments  Payment[]
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  title     String
+  type      String   // PRD, BRD, etc.
+  content   Json?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  amount        Float
+  currency      String
+  status        String   // created, paid, failed
+  razorpayOrderId String?
+  razorpayPaymentId String?
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  
+  createdAt     DateTime @default(now())
+}
+
+model Template {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  category    String   // PRD, BRD, User Story, etc.
+  content     Json     // Structure/Prompts
+  isPublic    Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PricingPlan {
+  id          String   @id @default(cuid())
+  name        String   @unique // Free, Pro, Agency
+  price       Float
+  currency    String   @default("USD")
+  interval    String   @default("month") // month, year
+  features    String[] // List of features
+  isPopular   Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BankAccount {
+  id            String   @id @default(cuid())
+  bankName      String
+  accountNumber String
+  accountName   String
+  ifsc          String?
+  swiftCode     String?
+  currency      String   @default("USD")
+  isPrimary     Boolean  @default(false)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
