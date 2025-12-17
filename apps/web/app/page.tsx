@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FileText, Layers, ShieldCheck, ArrowRight, Star, CheckCircle } from 'lucide-react';
