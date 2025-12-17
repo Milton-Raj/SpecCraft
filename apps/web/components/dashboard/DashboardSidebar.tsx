@@ -21,7 +21,8 @@ export function DashboardSidebar() {
         }
 
         // Fetch user profile
-        fetch('http://localhost:4001/auth/profile', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
+        fetch(`${apiUrl}/auth/profile`, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(res => res.json())

@@ -26,7 +26,8 @@ export default function AdminTemplatesPage() {
 
     const fetchTemplates = async () => {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:4001/admin/templates', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
+        const res = await fetch(`${apiUrl}/admin/templates`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) setTemplates(await res.json());

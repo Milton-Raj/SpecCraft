@@ -29,7 +29,8 @@ export default function AdminBillingPage() {
 
     const fetchPlans = async () => {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:4001/admin/plans', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
+        const res = await fetch(`${apiUrl}/admin/plans`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) setPlans(await res.json());

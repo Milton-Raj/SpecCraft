@@ -38,7 +38,8 @@ export default function AdminUsersPage() {
 
             console.log("Fetching with token:", token.substring(0, 10) + "...");
 
-            const res = await fetch('http://localhost:4001/admin/users', {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
+            const res = await fetch(`${apiUrl}/admin/users`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

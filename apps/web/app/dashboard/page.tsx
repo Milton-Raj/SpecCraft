@@ -13,7 +13,8 @@ export default function DashboardPage() {
         async function fetchDocs() {
             try {
                 const token = localStorage.getItem('token');
-                const res = await fetch('http://localhost:4001/documents', {
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
+                const res = await fetch(`${apiUrl}/documents`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

@@ -26,7 +26,8 @@ export default function AdminDocumentsPage() {
 
     const fetchDocuments = async () => {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:4001/admin/documents', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
+        const res = await fetch(`${apiUrl}/admin/documents`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) setDocuments(await res.json());

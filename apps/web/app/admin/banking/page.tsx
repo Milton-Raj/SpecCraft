@@ -34,7 +34,8 @@ export default function AdminBankingPage() {
 
     const fetchAccounts = async () => {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:4001/admin/banking', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
+        const res = await fetch(`${apiUrl}/admin/banking`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) setAccounts(await res.json());

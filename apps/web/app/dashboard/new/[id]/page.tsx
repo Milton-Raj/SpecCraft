@@ -49,7 +49,8 @@ export default function WizardPage() {
                 const token = localStorage.getItem('token');
 
                 // 1. Get Doc to see previous history
-                const docRes = await fetch(`http://localhost:4001/documents/${id}`, {
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
+                const docRes = await fetch(`${apiUrl}/documents/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const doc = await docRes.json();

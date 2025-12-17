@@ -16,7 +16,8 @@ export default function NewDocumentPage() {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:4001/documents', {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4001';
+            const res = await fetch(`${apiUrl}/documents`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
