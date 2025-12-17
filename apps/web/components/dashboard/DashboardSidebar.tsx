@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { appFetch } from '@/lib/mock-api';
 import { useEffect, useState } from 'react';
 import { LayoutDashboard, FilePlus, Settings, LogOut, User, ArrowUpCircle } from 'lucide-react';
