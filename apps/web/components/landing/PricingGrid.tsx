@@ -69,7 +69,7 @@ export function PricingGrid() {
 
             <div className="grid md:grid-cols-3 gap-8">
                 {plans.map((plan) => {
-                    const price = plan.isLifetime ? plan.price : (isYearly ? plan.monthlyPrice * 12 : plan.monthlyPrice);
+                    const price = plan.isLifetime ? plan.price : (isYearly ? (plan.monthlyPrice ?? 0) * 12 : (plan.monthlyPrice ?? 0));
                     const intervalLabel = plan.isLifetime ? '' : (isYearly ? '/year' : '/month');
 
                     return (
